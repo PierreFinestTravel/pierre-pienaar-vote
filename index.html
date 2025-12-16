@@ -86,8 +86,10 @@
 
         /* --- PDF GRID LAYOUT --- */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); 
+            /* Changed from grid to flex for custom 2-over-1 layout */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center the entire row of cards */
             gap: 24px;
             margin-bottom: 60px;
         }
@@ -100,9 +102,21 @@
             box-shadow: 0 20px 40px rgba(0,0,0,.3);
             display: flex;
             flex-direction: column;
-            height: 800px; 
+            height: 950px; /* INCREASED HEIGHT for larger viewer area */
             transition: transform 0.3s ease;
             position: relative;
+        }
+
+        /* Specific sizing for 2-over-1 layout */
+        .grid .card:nth-child(1),
+        .grid .card:nth-child(2) {
+            /* Two cards take up half the width minus the gap */
+            width: calc(50% - 12px); 
+        }
+        
+        .grid .card:nth-child(3) {
+            /* The third card takes up half the width minus the gap, but is centered */
+            width: calc(50% - 12px); 
         }
 
         .card:hover {
@@ -247,8 +261,14 @@
 
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .grid { grid-template-columns: 1fr; } 
-            .card { height: 600px; }
+            .grid { 
+                flex-direction: column; /* Stack all cards vertically */
+                align-items: center;
+            } 
+            .card { 
+                width: 100% !important; /* Full width on smaller screens */
+                height: 600px; 
+            }
             h1 { font-size: 2.5rem; }
             .footer-info { flex-direction: column; gap: 15px; }
         }
@@ -300,6 +320,7 @@
             </div>
 
             <!-- OPTION 3: CYPRUS (Zypern) -->
+            <!-- This card will wrap to the next line and be centered due to 'justify-content: center' on the parent grid/flex container -->
             <div class="card">
                 <div class="card-header">
                     <h3>Trip Option 03: Cyprus (Zypern)</h3>
