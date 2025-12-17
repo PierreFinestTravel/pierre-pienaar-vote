@@ -33,7 +33,7 @@
         }
 
         .wrap { 
-            max-width: 1200px; 
+            max-width: 1400px; /* Width to accommodate 3 cards comfortably */
             margin: 0 auto; 
             padding: 40px 20px 80px; 
             flex: 1; 
@@ -74,15 +74,15 @@
             max-width: 800px;
         }
 
-        /* --- SYMMETRICAL 2x2 GRID --- */
+        /* --- 3-COLUMN GRID --- */
         .summary-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Strict 2 columns */
+            grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
             gap: 30px;
             margin-bottom: 60px;
         }
 
-        /* CARD STYLE */
+        /* CARD STYLE (Retaining Final B Dimensions as requested) */
         .trip-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -91,9 +91,9 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer; /* Indicates clickable */
+            cursor: pointer; 
             position: relative;
-            height: 450px; /* Fixed height for symmetry */
+            height: 480px; /* Matches Final B height */
         }
 
         .trip-card:hover {
@@ -102,28 +102,9 @@
             box-shadow: 0 15px 30px rgba(45, 212, 191, 0.15);
         }
 
-        /* VOTE CARD (Special Style) */
-        .vote-card {
-            border-color: var(--accent);
-            background: rgba(45, 212, 191, 0.05); /* Subtle green tint */
-        }
-        
-        .vote-card:hover {
-            box-shadow: 0 15px 40px rgba(45, 212, 191, 0.25);
-        }
-
-        .vote-icon-area {
-            height: 250px;
-            background: rgba(45, 212, 191, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-        }
-
-        /* PREVIEW AREA (Simulating top of flyer) */
+        /* PREVIEW AREA */
         .card-preview {
-            height: 250px;
+            height: 270px;
             background-color: #fff;
             position: relative;
             overflow: hidden;
@@ -131,7 +112,7 @@
 
         .preview-iframe {
             width: 100%;
-            height: 400px; /* Taller than container to clip content */
+            height: 420px;
             border: none;
             pointer-events: none; 
             transform: scale(1); 
@@ -140,7 +121,7 @@
 
         /* CONTENT AREA */
         .card-content {
-            padding: 20px;
+            padding: 22px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -148,25 +129,25 @@
         }
 
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: #fff;
             margin: 0 0 5px 0;
         }
 
         .card-subtitle {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--muted);
             margin-bottom: 15px;
         }
 
         .price-tag {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--accent);
             display: inline-block;
             background: rgba(45, 212, 191, 0.1);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 8px;
             border: 1px solid rgba(45, 212, 191, 0.3);
         }
@@ -176,7 +157,7 @@
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -189,15 +170,36 @@
             color: #000;
             border-color: var(--accent);
         }
-        
-        .vote-btn {
-            background: var(--accent);
-            color: #000;
-            border: none;
+
+        /* --- FORM SECTION (Expanded View) --- */
+        .form-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%; 
+            margin: 0 auto;
+            text-align: center;
         }
-        
-        .vote-btn:hover {
-            background: #fff;
+
+        .form-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .form-iframe {
+            width: 100%;
+            height: 800px; 
+            border: none;
+            border-radius: 12px;
+            background: #fff; 
         }
 
         /* --- MODAL (POPUP) --- */
@@ -277,8 +279,9 @@
         .footer-info a { color: var(--muted); text-decoration: none; }
         .footer-info a:hover { color: var(--accent); }
 
-        @media (max-width: 768px) {
-            .summary-grid { grid-template-columns: 1fr; } /* Stack on mobile */
+        @media (max-width: 1024px) {
+            .summary-grid { grid-template-columns: 1fr; } 
+            .trip-card { height: auto; min-height: 450px; }
         }
     </style>
 </head>
@@ -291,11 +294,11 @@
             <p>Review the 3 options below. Click any card to see full details.</p>
         </header>
 
-        <!-- SYMMETRICAL 2x2 GRID -->
+        <!-- 3-COLUMN GRID (Trip 1, 2, 3 in one row) -->
         <div class="summary-grid">
             
             <!-- CARD 1 -->
-            <div class="trip-card" onclick="openModal('https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer1.pdf', 'Option 1: La Gomera', 'pdf')">
+            <div class="trip-card" onclick="openModal('https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer1.pdf', 'Option 1: La Gomera')">
                 <div class="card-preview">
                     <!-- Google Viewer used as 'thumbnail' generator -->
                     <iframe class="preview-iframe" src="https://docs.google.com/gview?url=https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer1.pdf&embedded=true"></iframe>
@@ -313,7 +316,7 @@
             </div>
 
             <!-- CARD 2 -->
-            <div class="trip-card" onclick="openModal('https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer2.pdf', 'Option 2: Ireland', 'pdf')">
+            <div class="trip-card" onclick="openModal('https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer2.pdf', 'Option 2: Ireland')">
                 <div class="card-preview">
                     <iframe class="preview-iframe" src="https://docs.google.com/gview?url=https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer2.pdf&embedded=true"></iframe>
                 </div>
@@ -330,7 +333,7 @@
             </div>
 
             <!-- CARD 3 -->
-            <div class="trip-card" onclick="openModal('https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer3.pdf', 'Option 3: Cyprus', 'pdf')">
+            <div class="trip-card" onclick="openModal('https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer3.pdf', 'Option 3: Cyprus')">
                 <div class="card-preview">
                     <iframe class="preview-iframe" src="https://docs.google.com/gview?url=https://bopcxdsfpvnadrnutybx.supabase.co/storage/v1/object/public/Flyers/Form1_flyer3.pdf&embedded=true"></iframe>
                 </div>
@@ -346,23 +349,24 @@
                 </div>
             </div>
 
-            <!-- CARD 4: THE VOTE FORM (Condensed for Symmetry) -->
-            <div class="trip-card vote-card" onclick="openModal('https://forms.office.com/r/AEYjCrJQ6v?embed=true', 'Cast Your Vote', 'form')">
-                <div class="vote-icon-area">
-                    🗳️
-                </div>
-                <div class="card-content">
-                    <div>
-                        <h3 class="card-title" style="color:var(--accent)">Ready to Decide?</h3>
-                        <p class="card-subtitle">Rank your favorites now.</p>
-                    </div>
-                    <div>
-                        <!-- Optional filler for alignment -->
-                    </div>
-                    <div class="view-btn vote-btn">Open Voting Form</div>
-                </div>
-            </div>
+        </div>
 
+        <!-- FORM SECTION (Full Expanded Width Below) -->
+        <div class="form-section">
+            <div class="form-header">
+                <h2>Cast Your Vote</h2>
+                <p>Which golf trip do you prefer? Please rank your choices below.</p>
+            </div>
+            
+            <!-- MS FORM EMBED -->
+            <iframe 
+                class="form-iframe"
+                src="https://forms.office.com/r/AEYjCrJQ6v?embed=true" 
+                allowfullscreen 
+                webkitallowfullscreen 
+                mozallowfullscreen 
+                msallowfullscreen>
+            </iframe>
         </div>
     </div>
 
@@ -399,18 +403,11 @@
         const modalFrame = document.getElementById('modalFrame');
         const modalTitle = document.getElementById('modalTitle');
 
-        function openModal(url, title, type) {
+        function openModal(url, title) {
             modal.style.display = 'flex';
             modalTitle.innerText = title;
-            
-            if (type === 'pdf') {
-                // Use Google Viewer for PDFs
-                modalFrame.src = "https://docs.google.com/gview?url=" + url + "&embedded=true";
-            } else {
-                // Direct link for Form
-                modalFrame.src = url;
-            }
-            
+            // Use Google Viewer for PDFs
+            modalFrame.src = "https://docs.google.com/gview?url=" + url + "&embedded=true";
             document.body.style.overflow = 'hidden'; // Stop background scroll
         }
 
